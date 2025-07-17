@@ -4,12 +4,12 @@ import { Bell, Menu, X } from 'lucide-react';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const scrollToSignup = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+  const scrollTo = (id: string) => (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
     e.preventDefault();
-    const el = document.getElementById('signup');
+    const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false); // close menu on mobile after click
+      setIsMenuOpen(false); // close mobile menu
     }
   };
 
@@ -30,14 +30,15 @@ const Header = () => {
             <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
             <a href="#architecture" className="text-gray-600 hover:text-blue-600 transition-colors">Architecture</a>
             <a href="#docs" className="text-gray-600 hover:text-blue-600 transition-colors">Docs</a>
+            <a href="#api-testing" className="text-gray-600 hover:text-blue-600 transition-colors" onClick={scrollTo('api-testing')}>API Testing</a>
             <button
-              onClick={scrollToSignup}
+              onClick={scrollTo('signup')}
               className="text-gray-600 hover:text-blue-600 transition-colors"
             >
               Sign Up
             </button>
             <button
-              onClick={scrollToSignup}
+              onClick={scrollTo('signup')}
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-200"
             >
               Get Started
@@ -58,17 +59,18 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t">
             <div className="flex flex-col space-y-4">
-              <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
-              <a href="#architecture" className="text-gray-600 hover:text-blue-600 transition-colors">Architecture</a>
-              <a href="#docs" className="text-gray-600 hover:text-blue-600 transition-colors">Docs</a>
+              <a href="#features" onClick={scrollTo('features')} className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+              <a href="#architecture" onClick={scrollTo('architecture')} className="text-gray-600 hover:text-blue-600 transition-colors">Architecture</a>
+              <a href="#docs" onClick={scrollTo('docs')} className="text-gray-600 hover:text-blue-600 transition-colors">Docs</a>
+              <a href="#api-testing" onClick={scrollTo('api-testing')} className="text-gray-600 hover:text-blue-600 transition-colors">API Testing</a>
               <button
-                onClick={scrollToSignup}
+                onClick={scrollTo('signup')}
                 className="text-left text-gray-600 hover:text-blue-600 transition-colors"
               >
                 Sign Up
               </button>
               <button
-                onClick={scrollToSignup}
+                onClick={scrollTo('signup')}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-200 w-fit"
               >
                 Get Started
