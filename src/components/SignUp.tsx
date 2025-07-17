@@ -8,7 +8,7 @@ const SignUp = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [credentials, setCredentials] = useState<{ client_id: string; api_key: string } | null>(null);
+  const [apiToken, setApiToken] = useState<string | null>(null);
 
   const addNotificationType = () => {
     setFormData({
@@ -50,7 +50,7 @@ const SignUp = () => {
         throw new Error(data.message || 'Failed to register');
       }
 
-      setCredentials({ client_id: data.client_id, api_key: data.api_key });
+      setApiToken(data.api_token);
       setShowSuccess(true);
     } catch (error: any) {
       alert(error.message || 'There was an error. Please try again.');
@@ -59,7 +59,7 @@ const SignUp = () => {
     setIsSubmitting(false);
   };
 
-  if (showSuccess && credentials) {
+  if (showSuccess && apiToken) {
     return (
       <section id="signup" className="py-20 bg-gradient-to-br from-green-50 to-blue-50">
         <div className="max-w-3xl mx-auto px-4 text-center">
@@ -68,18 +68,15 @@ const SignUp = () => {
               <Check className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">You're all set! ✅</h2>
-            <p className="text-lg text-gray-600 mb-8">Here are your API credentials:</p>
+            <p className="text-lg text-gray-600 mb-8">Here is your API Token:</p>
 
             <div className="bg-gray-50 rounded-lg p-6 mb-8 text-left">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Client ID</label>
-                  <div className="font-mono text-sm bg-white p-3 rounded border mt-1">{credentials.client_id}</div>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">API Key</label>
-                  <div className="font-mono text-sm bg-white p-3 rounded border mt-1">{credentials.api_key}</div>
-                </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">API Token</label>
+                <div className="font-mono text-sm bg-white p-3 rounded border mt-1">{apiToken}</div>
+                <p className="text-xs text-gray-500 mt-2">
+                  Save this securely. You'll use it to send notifications.
+                </p>
               </div>
             </div>
 
@@ -189,7 +186,7 @@ const SignUp = () => {
                 </>
               ) : (
                 <>
-                  <span>Register & Get API Keys</span>
+                  <span>Register & Get API Token</span>
                   <ArrowRight className="w-5 h-5" />
                 </>
               )}
